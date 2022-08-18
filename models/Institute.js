@@ -3,42 +3,42 @@ const crypto  = require('crypto')
 
 var instituteSchema = new mongoose.Schema({
 
-  Name:{
+  name:{
     type:String,
     required:true,
     trim:true
   },
-  PhoneNumber:{
+  phonenumber:{
     type:String,
     required:true,
     trim:true
   },
-  Designation:{
+  designation:{
     type:String,
     required:true,
     trim:true
  },
- Institute:{
+ institute:{
    type:String,
    required:true,
    trim:true
  },
- InstitueType:{
+ instituetype:{
   type:String,
   required:true,
   trim:true
  },
- State:{
+ state:{
   type:String,
   required:true,
   trim:true
  },
- City:{
+ city:{
   type:String,
   required:true,
   trim:true
  },
-  ZipCode:{
+  zipcode:{
      type:String,
      required:true,
      trim:true
@@ -54,7 +54,7 @@ var instituteSchema = new mongoose.Schema({
     required :true
   },
   salt : String,
- InstituteId:{
+ instituteid:{
     type:String,
     required:true
  }

@@ -15,17 +15,17 @@ var aicteUserSchema = new mongoose.Schema({
     required :true
   },
   salt:String,
-  Name:{
+  name:{
     type:String,
     required:true,
     trim:true
   },
-  PhoneNumber:{
+  phonenumber:{
     type:String,
     required:true,
     trim:true
   },
-  Designation:{
+  designation:{
       type:String,
       required:true,
       trim:true

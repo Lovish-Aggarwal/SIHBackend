@@ -7,6 +7,8 @@ const app = express();
 const InstituteAuthRoutes = require('./routes/authInsitute');
 const aicteAuthRoutes = require('./routes/authAicte');
 const FacultyMembersAuthRoutes = require('./routes/authFacultyMembers');
+const profileRoutes = require('./routes/profile');
+const eventRoutes = require('./routes/events');
 
 //npm packages
 const bodyParser = require('body-parser');
@@ -24,6 +26,8 @@ app.use(cors());
 app.use("/auth",InstituteAuthRoutes);
 app.use("/auth/aicte",aicteAuthRoutes);
 app.use("/auth/facultymembers",FacultyMembersAuthRoutes);
+app.use("/profile",profileRoutes)
+app.use("/events",eventRoutes)
 
 mongoose.connect('mongodb://localhost:27017/SIH')
 .then(()=>{

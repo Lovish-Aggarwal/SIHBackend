@@ -79,13 +79,13 @@ exports.signin = (req,res)=>{
          const token = jwt.sign({_id : user._id},"code4o4");
         
          //putting that token into cookie
-         res.cookie("token",token,{expires:new Date(1000000*Date.now()+5000000),httpOnly:true});
-  
+         res.cookie("token",token,{expires:new Date(Date.now()+50000),httpOnly:true});
+        
         //sending response to front-end
   
         const {_id,name,email,role} = user;
   
-        return res.json({token,user : {_id,name,email,role}});
+        return res.json({token,user : {_id,name,email,role},userType:"Institute"});
 
    })
 

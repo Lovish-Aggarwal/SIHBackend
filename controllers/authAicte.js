@@ -87,7 +87,7 @@ exports.signin = (req,res)=>{
  
        const {_id,name,email,role} = user;
  
-       return res.json({token,user : {_id,name,email,role}});
+       return res.json({token,user : {_id,name,email,role},userType:"Aicte"});
 
   })
 
@@ -96,7 +96,6 @@ exports.signin = (req,res)=>{
 
 exports.isSignedIn = expressJwt({ //pehle to ye auth header mein bearer token 
  //doondhega fir use cookie ke token se match krega decode krk id nikalega jo 
-
  // req.authAicte mein mil jayegi humein 
  
  secret : "code4o4",

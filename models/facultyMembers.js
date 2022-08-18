@@ -3,17 +3,17 @@ const crypto  = require('crypto')
 
 var facultyMembersSchema = new mongoose.Schema({
 
-  Name:{
+  name:{
     type:String,
     required:true,
     trim:true
   },
-  PhoneNumber:{
+  phonenumber:{
     type:String,
     required:true,
     trim:true
   },
-  Designation:{
+  designation:{
     type:String,
     required:true,
     trim:true
@@ -29,7 +29,7 @@ var facultyMembersSchema = new mongoose.Schema({
     required :true
   },
   salt : String,
- InstituteId:{
+ instituteid:{
     type:String,
     required:true
  }
