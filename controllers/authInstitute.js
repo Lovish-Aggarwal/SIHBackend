@@ -83,9 +83,8 @@ exports.signin = (req,res)=>{
         
         //sending response to front-end
   
-        const {_id,name,email,role} = user;
-  
-        return res.json({token,user : {_id,name,email,role},userType:"Institute"});
+        user.salt = undefined;
+        return res.json({token,user,userType:"Institute"});
 
    })
 

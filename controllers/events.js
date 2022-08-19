@@ -4,6 +4,9 @@ const aictePendingEvent = require('../models/aictePendingEvent');
  
 exports.eventByAicte = (req,res)=>{
 
+  req.body.confirmationbyinstitute = true;
+  req.body.confirmationbyaicte = true;
+
   req.body.confirmationstatus = true;
 
   const event = new confirmedEvent(req.body);
@@ -19,6 +22,8 @@ exports.eventByAicte = (req,res)=>{
 
 exports.eventByFaculty = (req,res)=>{
     
+req.body.confirmationbyinstitute = false;
+req.body.confirmationbyaicte = false;
 
     const event = new pendingEvent(req.body);
     
@@ -49,28 +54,30 @@ exports.getEventById = (req,res,next,id)=>{
      })
 }
 
-exports.eventConfirmedByInstitute = (req,res)=>{
-    
-  // req.event.confirmationstatus = true;
+exports.getEventById2 = (req,res,next,id)=>{
+  aictePendingEvent.findById(id,(err,event)=>{
+       if(err || !event ){
+         return res.status(400).json({
+           error : "No event found"
+         })
+       }
 
-    aictePendingEvent.insertMany(req.event)
-    .then((obj)=>{
-         res.status(200).json(obj)
-    })
-    .catch((err)=>{
-      res.status(400).json({error:"error occurred"})
-    })
+       req.event = event;
+       
+       // req.event.id = event._id;
+       // req.event._id = undefined;
+       next();
+  })
 }
 
-exports.eventConfirmedByAicte = (req,res)=>{
-     const id = req.event._id;
-
+exports.eventConfirmedByInstitute = (req,res)=>{
+    
+  const id = req.event._id;
+    
     let error = false;
 
-     pendingEvent.findByIdAndUpdate(
-      {_id:id},
-      {confirmationstatus:true},
-      {new:true})
+    pendingEvent.deleteOne(
+      {_id:id})
      .exec( 
       (err)=>{
            if(err)
@@ -81,10 +88,30 @@ exports.eventConfirmedByAicte = (req,res)=>{
        }
      )
 
-     aictePendingEvent.findByIdAndUpdate(
-      {_id:id},
-      {confirmationstatus:true},
-      {new:true}
+     if(error)
+    return res.status(400).json({error:"some error occured"})
+    
+     req.event.confirmationbyinstitute = true;
+     req.event.confirmationbyaicte = false;
+   
+    aictePendingEvent.insertMany(req.event)
+    .then((obj)=>{
+         res.status(200).json(obj)
+    })
+    .catch((err)=>{
+      console.log(err)
+      res.status(400).json({error:"error occurred"})
+    })
+}
+
+exports.eventConfirmedByAicte = (req,res)=>{
+     const id = req.event._id;
+
+    let error = false;
+
+
+     aictePendingEvent.deleteOne(
+      {_id:id}
      ).exec( 
       (err)=>{
            if(err)
@@ -99,7 +126,8 @@ exports.eventConfirmedByAicte = (req,res)=>{
       res.status(400).json({error:"some error occured"})
      
       
-      req.event.confirmationstatus = true;
+      req.event.confirmationbyinstitute = true;
+      req.event.confirmationbyaicte = true;
 
       confirmedEvent.insertMany(req.event)
       .then((obj)=>{
@@ -108,4 +136,43 @@ exports.eventConfirmedByAicte = (req,res)=>{
       .catch((err)=>{
         res.status(400).json({error:"error occurred"})
       })
+}
+
+
+exports.storeId = (req,res,next,id)=>{
+    req.userId = id;
+
+    next();
+}
+
+exports.getConfirmedEvents = (req,res)=>{
+     confirmedEvent.find({userid:req.userId})
+     .then((obj)=>{
+      return res.status(200).json({obj});
+     })
+     .catch((err)=>{
+         return res.status(200).json({"error":"some error is there"})
+     })
+}
+
+
+
+exports.getPendingEvents = async (req,res)=>{
+
+  let obj1;
+  let obj2;
+  let obj3=[];
+
+  try{
+    
+   obj1 = await aictePendingEvent.find({userid:req.userId})  
+   obj2 =  await pendingEvent.find({userid:req.userId})
+
+   obj3 = obj3.concat(obj1,obj2);
+  return res.status(200).json(obj3);
+  }
+  catch(err){
+    console.log(obj3)
+    return res.status(400).json({"error":err})
+  }
 }
