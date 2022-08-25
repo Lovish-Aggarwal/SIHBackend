@@ -14,7 +14,7 @@ exports.eventByAicte = (req,res)=>{
   event.save((err,event)=>{
 
      if(err)
-      return res.status(400).json({error:"Error in Saving the event"});
+      return res.status(400).json({error:err});
 
      return res.status(200).json(event); 
   })
