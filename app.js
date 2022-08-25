@@ -12,6 +12,7 @@ const eventRoutes = require('./routes/events');
 const auditoriumRoutes = require('./routes/auditorium') 
 const canteenRoutes = require('./routes/canteen')
 const twitterRoutes = require('./routes/tweet')
+const reportRoutes = require('./routes/report')
 //npm packages
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -33,6 +34,7 @@ app.use("/events",eventRoutes)
 app.use('/auditorium',auditoriumRoutes)
 app.use('/canteen',canteenRoutes)
 app.use('/twitter',twitterRoutes);
+app.use('/report',reportRoutes)
 
 mongoose.connect('mongodb://localhost:27017/SIH')
 .then(()=>{
