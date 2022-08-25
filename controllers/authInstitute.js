@@ -84,6 +84,7 @@ exports.signin = (req,res)=>{
         //sending response to front-end
   
         user.salt = undefined;
+        
         return res.json({token,user,userType:"Institute"});
 
    })
@@ -107,6 +108,24 @@ exports.isSignedIn =
     secret : "code4o4",
     userProperty:"auth"
   })
+
+
+  exports.storeId = (req,res,next,id)=>{
+      req.instituteid = id;
+     
+      // console.log(req.instituteid)
+      next();
+  }
+
+exports.getInstituteById = (req,res)=>{
+    Institute.find({instituteid:req.instituteid})
+    .then((result)=>{
+         return res.status(200).json(result)
+    })
+    .catch((err)=>{
+      return res.status(400).json({"error":"some error occured"})
+    })
+}
 
   
 

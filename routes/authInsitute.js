@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check } = require('express-validator');
 
-const {signup, signin, isSignedIn, signout} = require('../controllers/authInstitute')
+const {signup, signin, isSignedIn, signout, getInstituteById, storeId} = require('../controllers/authInstitute')
 
 router.post('/signup',
 [
@@ -24,6 +24,8 @@ signin)
 //    res.send("Protected route here");
 // })
 
+router.param('id',storeId)
+router.get('/getInstituteById/:id',getInstituteById)
 router.get('/signout',signout);
 
 module.exports = router;

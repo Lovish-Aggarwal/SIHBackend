@@ -32,6 +32,14 @@ var facultyMembersSchema = new mongoose.Schema({
  instituteid:{
     type:String,
     required:true
+ },
+ qualification:{
+    type:String,
+    required:true
+ },
+ experience : {
+   type:Number,
+   required:true
  }
 },{timestamps:true})
 

@@ -42,6 +42,40 @@ const pendingEventSchema = mongoose.Schema({
     userid:{
       type:ObjectId,
       required:true
+    },
+    auditoriumid:{
+      type:ObjectId,
+      required:true,
+      default:null
+    },
+    canteenid:{
+      type:ObjectId,
+      required:true,
+      default:null
+    },
+    typeofevent:{
+      type:String,
+      required:true
+    },
+    eventexpenditure:{
+      type : String,
+      required:true
+    },
+    tada:{
+       type:String,
+       required:true
+    },
+    other:{
+      type:String,
+      required:true
+    },
+    total:{
+      type:String,
+      required:true
+    },
+    instituteid:{
+      type:String,
+      required:true
     }
 })
 

@@ -5,8 +5,6 @@ const router = express.Router();
 router.param('eventId',getEventById);
 router.param('eventId2',getEventById2);
 router.param('userId',storeId);
-
-
 router.post('/byAicte',eventByAicte)
 router.post('/byFaculty',eventByFaculty)
 router.post('/confirmedByInstitute/:eventId',eventConfirmedByInstitute)

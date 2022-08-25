@@ -28,6 +28,7 @@ var instituteSchema = new mongoose.Schema({
   required:true,
   trim:true
  },
+ 
  state:{
   type:String,
   required:true,
