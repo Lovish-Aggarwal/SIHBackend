@@ -10,6 +10,8 @@ const FacultyMembersAuthRoutes = require('./routes/authFacultyMembers');
 const profileRoutes = require('./routes/profile');
 const eventRoutes = require('./routes/events');
 const auditoriumRoutes = require('./routes/auditorium') 
+const canteenRoutes = require('./routes/canteen')
+const twitterRoutes = require('./routes/tweet')
 //npm packages
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -29,8 +31,10 @@ app.use("/auth/facultymembers",FacultyMembersAuthRoutes);
 app.use("/profile",profileRoutes)
 app.use("/events",eventRoutes)
 app.use('/auditorium',auditoriumRoutes)
+app.use('/canteen',canteenRoutes)
+app.use('/twitter',twitterRoutes);
 
-mongoose.connect('mongodb://0.0.0.0:27017/SIH')
+mongoose.connect('mongodb://localhost:27017/SIH')
 .then(()=>{
   console.log("connected to database")
 })

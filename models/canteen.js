@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const auditoriumSchema = mongoose.Schema({
+const canteenSchema = mongoose.Schema({
 
   name:{
     type:String,
@@ -10,11 +10,7 @@ const auditoriumSchema = mongoose.Schema({
     type:String,
     required:true,
   },
-  sittingcapacity:{
-    type:Number,
-    required:true
-  },
-  isac:{
+  isnonveg:{
     type:Boolean,
     required:true
   },
@@ -25,4 +21,4 @@ const auditoriumSchema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model("auditoriums",auditoriumSchema);
+module.exports = mongoose.model("canteens",canteenSchema);

@@ -34,31 +34,33 @@ exports.enterId = (req,res,next,audiId)=>{
 
 }
 
-exports.bookAuditorium = (req,res)=>{
+exports.bookAuditorium = async(req,res)=>{
    
     // let error  = false;
 
-  Auditoriums.findById(
-    {_id:req.audiId}
-  ).then((result)=>{
-    if(result.whetherBooked.findIndex(x=>x.date==req.body.date)!==-1) 
-      return res.status(200).json({status:"Auditorium already booked"});      
-  }).catch((e)=>{
-    console.log(e)
-  })
-
+    let result;
   
-    Auditoriums.updateOne(
-      {_id:req.audiId},
-      {$push:{whetherBooked:{name:req.body.name,date:req.body.date}}}
-    ).then(()=>{
-      return res.status(200).json({
-          Success : "Booked Successfully"
-      })
-    })
-    .catch((err)=>{
-      return res.status(400).json({
-         error : err
-      })
-    })
+    try{
+        result = await Auditoriums.findById({_id:req.audiId})
+        
+        if(result.whetherbooked.findIndex(x=>x.date==req.body.date)!==-1){
+          console.log("here")
+          return res.status(400).json({status:"Auditorium already booked"}); 
+        }     
+        
+      
+        await Auditoriums.updateOne(
+          {_id:req.audiId},
+          {$push:{whetherbooked:{name:req.body.name,date:req.body.date}}}
+        ).then(()=>{
+          return res.status(200).json({
+            Success : "Booked Successfully"
+          })
+        })
+        
+      }
+      catch(error){
+           return res.json({error:"some error occured"})
+      }
+
 }
