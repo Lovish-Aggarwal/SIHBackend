@@ -29,7 +29,8 @@ app.use("/auth/facultymembers",FacultyMembersAuthRoutes);
 app.use("/profile",profileRoutes)
 app.use("/events",eventRoutes)
 app.use('/auditorium',auditoriumRoutes)
-mongoose.connect('mongodb://localhost:27017/SIH')
+
+mongoose.connect('mongodb://0.0.0.0:27017/SIH')
 .then(()=>{
   console.log("connected to database")
 })
