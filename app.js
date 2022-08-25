@@ -9,7 +9,7 @@ const aicteAuthRoutes = require('./routes/authAicte');
 const FacultyMembersAuthRoutes = require('./routes/authFacultyMembers');
 const profileRoutes = require('./routes/profile');
 const eventRoutes = require('./routes/events');
-
+const auditoriumRoutes = require('./routes/auditorium') 
 //npm packages
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -28,7 +28,7 @@ app.use("/auth/aicte",aicteAuthRoutes);
 app.use("/auth/facultymembers",FacultyMembersAuthRoutes);
 app.use("/profile",profileRoutes)
 app.use("/events",eventRoutes)
-
+app.use('/auditorium',auditoriumRoutes)
 mongoose.connect('mongodb://localhost:27017/SIH')
 .then(()=>{
   console.log("connected to database")

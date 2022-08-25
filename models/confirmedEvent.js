@@ -76,6 +76,10 @@ const confirmedEventSchema = mongoose.Schema({
   instituteid:{
     type:String,
     required:true
+  },
+  location:{
+    type:String,
+    required:true,
   }
     
 })
