@@ -1,5 +1,6 @@
 // const auditoriums = require("../models/auditoriums");
 const canteens = require("../models/canteen");
+const events = require("../models/confirmedEvent");
 
 exports.createCanteen = (req,res)=>{
       
@@ -34,6 +35,11 @@ exports.enterId = (req,res,next,canteenId)=>{
 
 }
 
+exports.storeEventId = (req,res,next,eventId)=>{
+  req.eventId = eventId;
+  next();
+}
+
 exports.bookCanteen = async(req,res)=>{
    
   let result;
@@ -43,17 +49,25 @@ try{
     
     if(result.whetherbooked.findIndex(x=>x.date==req.body.date)!==-1){
       console.log("here")
+      
       return res.status(400).json({status:"Canteen already booked"}); 
     }     
     
   
-    await canteens.updateOne(
+   const res =  await canteens.updateOne(
       {_id:req.canteenId},
       {$push:{whetherbooked:{name:req.body.name,date:req.body.date}}}
     ).then(()=>{
-      return res.status(200).json({
+       
+      events.findByIdAndUpdate(req.eventId,{canteenid:req.canteenId}).then(()=>{
+        return res.status(200).json({
           Success : "Booked Successfully"
+         })
       })
+       .catch((err)=>{
+        return res.json({"error":"some error occured"})
+       })
+      
     })
     
   }

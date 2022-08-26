@@ -17,6 +17,16 @@ const canteenSchema = mongoose.Schema({
   whetherbooked:{
     type:[],
     required:true
+  },
+  email:{
+    type:String,
+    required:true,
+    trim:true
+  },
+  phonenumber:{
+      type:String,
+      required:true,
+      trim:true
   }
 
 })
