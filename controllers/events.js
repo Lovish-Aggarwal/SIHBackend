@@ -70,6 +70,28 @@ exports.getEventById2 = (req,res,next,id)=>{
   })
 }
 
+
+exports.storeEvent = (req,res,next,id)=>{
+ 
+  console.log("that function called")
+
+  confirmedEvent.findById(id,(err,doc)=>{
+       if(err)
+       return res.status(400).json({"error":"error occured"})
+      
+      
+        req.t = doc;
+        next();
+  })
+  
+  
+}
+
+exports.getConfirmedEventById = (req,res)=>{
+  console.log("this function called")
+  return res.status(200).json(req.t);
+}
+
 exports.eventConfirmedByInstitute = (req,res)=>{
     
   const id = req.event._id;
